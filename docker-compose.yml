@@ -1,21 +1,22 @@
-version: "3"
+version: '3'
 
-services: 
+services:
   backend:
     container_name: backend
-    build: 
+    build:
       context: ./backend
-    depends_on: 
+      dockerfile: Dockerfile.dev
+    depends_on:
       - db
-    volumes: 
+    volumes:
       - ./backend:/usr/app
       - /usr/app/node_modules
-      environment:  
+    environment:
       - MONGO_URL=mongodb://db:27017/homes
       - SERVER_PORT=5000
-      ports: 
-        - "5000:5000"
-  
+    ports:
+      - '5000:5000'
+
   db:
     container_name: db
     image: mongo:4.2.6-bionic
