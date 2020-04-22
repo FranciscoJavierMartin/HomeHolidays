@@ -4,7 +4,7 @@ const HomeOwner = require('../models/homeOwner');
 
 app.get('/', (req, res, next) => {
   
-  HomeOwner.find({})
+  HomeOwner.find()
     .exec((err, homeOwners) => {
       if(err){
         res.status(500).json({

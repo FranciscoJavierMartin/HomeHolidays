@@ -21,7 +21,7 @@ mongoose.connection.openUri(MONGO_DB, (error, res) => {
   if(error){
     throw error;
   } else {
-    feedData();
+    //feedData();
   }
 
   console.log('Database: \x1b[32m%s\x1b[0m', 'online');
