@@ -5,7 +5,6 @@ services:
     container_name: backend
     build:
       context: ./backend
-      dockerfile: Dockerfile.dev
     depends_on:
       - db
     volumes:
