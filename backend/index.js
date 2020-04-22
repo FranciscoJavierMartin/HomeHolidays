@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const feedData = require('./helper/feedData');
 
 const { SERVER_PORT, MONGO_DB } = require('./config');
 const { homeOwnerRoutes, homeRoutes } = require('./routes');
@@ -19,6 +20,8 @@ app.use('/api/homeowner', homeOwnerRoutes);
 mongoose.connection.openUri(MONGO_DB, (error, res) => {
   if(error){
     throw error;
+  } else {
+    feedData();
   }
 
   console.log('Database: \x1b[32m%s\x1b[0m', 'online');
