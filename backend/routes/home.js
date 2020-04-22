@@ -1,10 +1,11 @@
 const express = require('express');
 const Home = require('../models/home');
+const HomeOwner = require('../models/homeOwner');
 
 const app = express.Router();
 
 app.get('/:id', (req, res) => {
-  const { id } = req.params.id;
+  const { id } = req.params;
 
   Home.findById(id, (err, home) => {
     if (err) {
@@ -17,6 +18,26 @@ app.get('/:id', (req, res) => {
       });
     }
   });
+});
+
+app.get('/:ownerId', (req, res) => {
+  const { ownerId } = req.params;
+  const from = req.query.from || 0;
+
+  Home.find({ owner: ownerId })
+    .skip(from)
+    .limit(5)
+    .exec((err, homes) => {
+      if (err) {
+        res.status(500).json({
+          error: err,
+        });
+      } else {
+        res.status(200).json({
+          homes,
+        });
+      }
+    });
 });
 
 app.post('/', (req, res) => {
@@ -42,7 +63,7 @@ app.post('/', (req, res) => {
 });
 
 app.delete('/:id', (req, res) => {
-  const { id } = req.params.id;
+  const { id } = req.params;
 
   Home.findByIdAndRemove(id, (err, homeRemoved) => {
     if (err) {
@@ -62,7 +83,7 @@ app.delete('/:id', (req, res) => {
 });
 
 app.put('/:id', (req, res) => {
-  const { id } = req.params.id;
+  const { id } = req.params;
 
   Home.findByIdAndUpdate(id, (err, homeUpdated) => {
     if (err) {
