@@ -37,3 +37,8 @@ const request = {
 export const HomeOwner = {
   list: () => axios.get(`/${API_HOME_OWNER}`).then(responseBody),
 };
+
+export const Homes = {
+  list: (id, page) =>
+    axios.get(`/${API_HOME}/byowner/${id}/${page}`).then(responseBody),
+};

@@ -1,6 +1,7 @@
 const express = require('express');
 const Home = require('../models/home');
-const HomeOwner = require('../models/homeOwner');
+
+const ITEMS_PER_PAGE = 5;
 
 const app = express.Router();
 
@@ -20,13 +21,13 @@ app.get('/:id', (req, res) => {
   });
 });
 
-app.get('/:ownerId', (req, res) => {
+app.get('/byowner/:ownerId/:page', (req, res) => {
   const { ownerId } = req.params;
-  const from = req.query.from || 0;
+  const page = req.params.page || 1;
 
   Home.find({ owner: ownerId })
-    .skip(from)
-    .limit(5)
+    .skip(ITEMS_PER_PAGE * page - ITEMS_PER_PAGE)
+    .limit(ITEMS_PER_PAGE)
     .exec((err, homes) => {
       if (err) {
         res.status(500).json({
