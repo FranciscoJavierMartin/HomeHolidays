@@ -37,4 +37,24 @@ app.get('/:id', (req, res) => {
   });
 });
 
+app.post('/', (req, res) => {
+  const { name } = req.body;
+
+  const homeOwner = new HomeOwner({
+    name,
+  });
+
+  homeOwner.save((err, homeOwnerSaved) => {
+    if (err) {
+      res.status(400).json({
+        error: err,
+      });
+    } else {
+      res.status(201).json({
+        homeOwner: homeOwnerSaved,
+      });
+    }
+  });
+});
+
 module.exports = app;
