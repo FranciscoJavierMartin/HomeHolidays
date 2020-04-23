@@ -57,4 +57,29 @@ app.post('/', (req, res) => {
   });
 });
 
+app.put('/:id', (req, res) => {
+
+  const {id } = req.params;
+  const { name } = req.body;
+
+  HomeOwner.findByIdAndUpdate(id, {name}, (err, homeOwnerUpdated) => {
+    if(err){
+      res.status(500).json({
+        error: err,
+      });
+    } else if(!homeOwnerUpdated){
+      res.status(400).json({
+        error: {
+          message: 'Home owner not found'
+        }
+      })
+    } else {
+      res.status(200).json({
+        message: 'Home owner updated'
+      });
+    }
+  });
+
+})
+
 module.exports = app;

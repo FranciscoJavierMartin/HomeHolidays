@@ -86,7 +86,8 @@ app.delete('/:id', (req, res) => {
 app.put('/:id', (req, res) => {
   const { id } = req.params;
 
-  Home.findByIdAndUpdate(id, (err, homeUpdated) => {
+  // FIX: Pass data
+  Home.findByIdAndUpdate(id, {}, (err, homeUpdated) => {
     if (err) {
       res.status(500).json({
         error: err,
