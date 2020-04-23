@@ -2,6 +2,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import HomeOwnersList from '../views/HomeOwnersList.vue';
 import HomeList from '../views/HomeList.vue';
+import CreateHome from '../views/CreateHome.vue';
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -11,10 +13,14 @@ const routes = [
     component: HomeOwnersList,
   },
   {
-    path: '/:id/homes/:page?',
+    path: '/:id/homes/create',
+    name: 'CreateHome',
+    component: CreateHome,
+  },
+  {
+    path: '/:id/homes',
     name: 'HomeList',
     component: HomeList,
-    props: (route) => ({ id: route.params.page || 1 }),
   },
 ];
 

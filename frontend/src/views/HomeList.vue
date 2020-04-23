@@ -17,16 +17,11 @@ export default {
   components: {
     HomeItemList,
   },
-  props: {
-    page: {
-      type: Number,
-      default: 1,
-    },
-  },
   data() {
     return {
       loading: true,
       homes: [],
+      pageNumber: 1,
     };
   },
   created() {
@@ -35,9 +30,9 @@ export default {
   methods: {
     fetchHomesByOwner() {
       this.loading = true;
-      Homes.list(this.$route.params.id, this.$route.params.page)
+      Homes.list(this.$route.params.id, this.pageNumber)
         .then((res) => {
-          console.log(res);
+          this.homes = [];
           res.homes.forEach((home) => {
             this.homes.push(home);
           });
@@ -46,7 +41,7 @@ export default {
         .finally(() => (this.loading = false));
     },
     nextPage() {
-      console.log('Next page');
+      this.pageNumber++;
     },
   },
 };
