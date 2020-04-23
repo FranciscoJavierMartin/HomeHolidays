@@ -30,7 +30,11 @@ export default {
     },
   },
   methods: {
-    removeHome() {},
+    removeHome() {
+      Homes.delete(this.home._id)
+        .then(() => console.log('Success'))
+        .catch((err) => console.log(err));
+    },
   },
 };
 </script>

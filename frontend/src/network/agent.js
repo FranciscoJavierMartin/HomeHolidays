@@ -44,4 +44,5 @@ export const Homes = {
   create: (home) => request.post(`/${API_HOME}`, home).then(responseBody),
   get: (id) => request.get(`/${API_HOME}/${id}`),
   put: (id, home) => request.put(`/${API_HOME}/${id}`, home),
+  delete: (id) => request.del(`/${API_HOME}/${id}`),
 };
