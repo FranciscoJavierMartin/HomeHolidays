@@ -42,4 +42,6 @@ export const Homes = {
   list: (id, page) =>
     axios.get(`/${API_HOME}/byowner/${id}/${page}`).then(responseBody),
   create: (home) => request.post(`/${API_HOME}`, home).then(responseBody),
+  get: (id) => request.get(`/${API_HOME}/${id}`),
+  put: (id, home) => request.put(`/${API_HOME}/${id}`, home),
 };

@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import HomeOwnersList from '../views/HomeOwnersList.vue';
 import HomeList from '../views/HomeList.vue';
 import CreateHome from '../views/CreateHome.vue';
+import UpdateHome from '../views/UpdateHome.vue';
 
 Vue.use(VueRouter);
 
@@ -16,6 +17,11 @@ const routes = [
     path: '/:id/homes/create',
     name: 'CreateHome',
     component: CreateHome,
+  },
+  {
+    path: '/:id/homes/update/:homeid',
+    name: 'UpdateHome',
+    component: UpdateHome,
   },
   {
     path: '/:id/homes',

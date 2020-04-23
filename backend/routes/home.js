@@ -86,22 +86,32 @@ app.delete('/:id', (req, res) => {
 app.put('/:id', (req, res) => {
   const { id } = req.params;
 
-  // FIX: Pass data
-  Home.findByIdAndUpdate(id, {}, (err, homeUpdated) => {
+  Home.findById(id, (err, home) => {
     if (err) {
       res.status(500).json({
         error: err,
       });
-    } else if (!homeUpdated) {
+    } else if (!home) {
       res.status(400).json({
-        message: 'Home not found',
+        error: { message: 'Home not found' },
       });
     } else {
-      res.status(200).json({});
+      home.name = req.body.name;
+      home.description = req.body.description;
+      home.imageUrl = req.body.imageUrl;
+
+      home.save((homeError, homeSaved) => {
+        if (homeError) {
+          res.status(400).json({
+            error: homeError,
+          });
+        } else {
+          res.status(200).json({});
+        }
+      });
     }
   });
 
-  res.status(200).json({});
 });
 
 module.exports = app;
